@@ -1,0 +1,212 @@
+// pin motor a, kanan belakang
+#define pwma 4
+#define ina1 22
+#define inb1 23
+// pin motor b, kanan tengah
+#define pwmb 5
+#define ina2 24
+#define inb2 25
+// pin motor c, kanan depan
+#define pwmc 6
+#define ina3 26
+#define inb3 27
+// pin motor d, kiri belakang
+#define pwmd 7
+#define ina4 28
+#define inb4 29
+// pin motor e, kiri tengah
+#define pwme 8
+#define ina5 30
+#define inb5 31
+// pin motor f, kiri depan
+#define pwmf 9
+#define ina6 32
+#define inb6 33
+char command;
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial2.begin (9600);
+  pinMode(pwma, OUTPUT);
+  pinMode(pwmb, OUTPUT);
+  pinMode(pwmc, OUTPUT);
+  pinMode(pwmd, OUTPUT);
+  pinMode(pwme, OUTPUT);
+  pinMode(pwmf, OUTPUT);
+  pinMode(ina1, OUTPUT);
+  pinMode(inb1, OUTPUT);
+  pinMode(ina2, OUTPUT);
+  pinMode(inb2, OUTPUT);
+  pinMode(ina3, OUTPUT);
+  pinMode(inb3, OUTPUT);
+  pinMode(ina4, OUTPUT);
+  pinMode(inb4, OUTPUT);
+  pinMode(ina5, OUTPUT);
+  pinMode(inb5, OUTPUT);
+  pinMode(ina6, OUTPUT);
+  pinMode(inb6, OUTPUT);
+}
+
+void loop()
+{
+  // put your main code here, to run repeatedly:
+BT();
+//maju();
+}
+
+
+
+void BT()
+{
+  if (Serial2.available() > 0)
+  {     command = Serial2.read(); 
+    //Stop(); //initialize with motors stoped
+    //Change pin mode only if new command is different from previous.   
+    Serial.println(command);
+    switch(command)
+    {
+    case 'F':  
+      maju();
+      break;
+    case 'B':  
+       mundur();
+      break;
+    case 'L':  
+      kiri();
+      break;
+    case 'R':
+      kanan();
+      break;
+    case 'S':
+      berhenti();
+      break;
+//    case 'G':
+//      full();
+//      break;
+//    case 'T':
+//      beep();
+//    break;
+//    case 'A':
+//      mode_auto();
+//    break;
+    }
+  }
+
+}
+
+void berhenti()
+{
+  digitalWrite(ina1, HIGH);
+  digitalWrite(inb1, HIGH);
+  analogWrite(pwma, 0);
+  digitalWrite(ina2, HIGH);
+  digitalWrite(inb2, HIGH);
+  analogWrite(pwmb, 0);
+  digitalWrite(ina3, HIGH);
+  digitalWrite(inb3, HIGH);
+  analogWrite(pwmc, 0);
+  digitalWrite(ina4, HIGH);
+  digitalWrite(inb4, HIGH);
+  analogWrite(pwmd, 0);
+  digitalWrite(ina5, HIGH);
+  digitalWrite(inb5, HIGH);
+  analogWrite(pwme, 0);
+  digitalWrite(ina6, HIGH);
+  digitalWrite(inb6, HIGH);
+  analogWrite(pwmf, 0);
+}
+
+void maju()
+{
+  digitalWrite(ina1, LOW);
+  digitalWrite(inb1, HIGH);
+  analogWrite(pwma, 100);
+  digitalWrite(ina2, LOW);
+  digitalWrite(inb2, HIGH);
+  analogWrite(pwmb, 100);
+  digitalWrite(ina3, LOW);
+  digitalWrite(inb3, HIGH);
+  analogWrite(pwmc, 100);
+  digitalWrite(ina4, LOW);
+  digitalWrite(inb4, HIGH);
+  analogWrite(pwmd, 100);
+  digitalWrite(ina5, LOW);
+  digitalWrite(inb5, HIGH);
+  analogWrite(pwme, 100);
+  digitalWrite(ina6, LOW);
+  digitalWrite(inb6, HIGH);
+  analogWrite(pwmf, 100);
+}
+
+void mundur()
+{
+  digitalWrite(ina1, HIGH);
+  digitalWrite(inb1, LOW);
+  analogWrite(pwma, 50);
+  digitalWrite(ina2, HIGH);
+  digitalWrite(inb2, LOW);
+  analogWrite(pwmb, 50);
+  digitalWrite(ina3, HIGH);
+  digitalWrite(inb3, LOW);
+  analogWrite(pwmc, 50);
+  digitalWrite(ina4, HIGH);
+  digitalWrite(inb4, LOW);
+  analogWrite(pwmd, 50);
+  digitalWrite(ina5, HIGH);
+  digitalWrite(inb5, LOW);
+  analogWrite(pwme, 50);
+  digitalWrite(ina6, HIGH);
+  digitalWrite(inb6, LOW);
+  analogWrite(pwmf, 50);
+}
+
+void kiri()
+{
+  digitalWrite(ina1, LOW);
+  digitalWrite(inb1, HIGH);
+  analogWrite(pwma, 100);
+  digitalWrite(ina2, LOW);
+  digitalWrite(inb2, HIGH);
+  analogWrite(pwmb, 80);
+  digitalWrite(ina3, LOW);
+  digitalWrite(inb3, HIGH);
+  analogWrite(pwmc, 80);
+  digitalWrite(ina4, HIGH);
+  digitalWrite(inb4, LOW);
+  analogWrite(pwmd, 100);
+  digitalWrite(ina5, HIGH);
+  digitalWrite(inb5, LOW);
+  analogWrite(pwme, 100);
+  digitalWrite(ina6, HIGH);
+  digitalWrite(inb6, LOW);
+  analogWrite(pwmf, 75);
+}
+
+void kanan()
+{
+  digitalWrite(ina1, HIGH);
+  digitalWrite(inb1, LOW);
+  analogWrite(pwma, 100);
+  digitalWrite(ina2, HIGH);
+  digitalWrite(inb2, LOW);
+  analogWrite(pwmb, 100);
+  digitalWrite(ina3, HIGH);
+  digitalWrite(inb3, LOW);
+  analogWrite(pwmc, 50);
+  digitalWrite(ina4, LOW);
+  digitalWrite(inb4, HIGH);
+  analogWrite(pwmd, 100);
+  digitalWrite(ina5, LOW);
+  digitalWrite(inb5, HIGH);
+  analogWrite(pwme, 100);
+  digitalWrite(ina6, LOW);
+  digitalWrite(inb6, HIGH);
+  analogWrite(pwmf, 50);
+  }
+//  void Stop()
+//{
+//  motor1.setSpeed(0);
+//  motor2.run(RELEASE); //turn motor1 off
+//  motor2.setSpeed(0);
+//  motor2.run(RELEASE); //turn motor2 off
+//}
